@@ -23,13 +23,7 @@ class Spammers extends Collection
      */
     public static function load(array $spammers)
     {
-        $self = new static;
-
-        foreach ($spammers as $host) {
-            $self->blockOne($host);
-        }
-
-        return $self;
+        return static::make()->includes($spammers);
     }
 
     /**
@@ -142,6 +136,23 @@ class Spammers extends Collection
     {
         return $this->where('host', trim(utf8_encode($host)))
             ->first();
+    }
+
+    /**
+     * Filter the spammer by the given hosts.
+     *
+     * @param  array  $hosts
+     * @param  bool   $strict
+     *
+     * @return static
+     */
+    public function whereHostIn(array $hosts, $strict = false)
+    {
+        $values = $this->getArrayableItems($hosts);
+
+        return $this->filter(function ($item) use ($values, $strict) {
+            return in_array(data_get($item, 'host'), $values, $strict);
+        });
     }
 
     /**

@@ -248,8 +248,8 @@ class SpamBlocker implements SpamBlockerContract
         $rootDomain = $this->getRootDomain($fullDomain);
 
         return $this->spammers()
+            ->whereHostIn([$fullDomain, $rootDomain])
             ->where('block', true)
-            ->whereIn('host', [$fullDomain, $rootDomain])
             ->count() > 0;
     }
 
