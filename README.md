@@ -1,4 +1,4 @@
-# Package [![Packagist License][badge_license]](LICENSE.md) [![For Laravel 5][badge_laravel]][link-github-repo]
+# Spam Blocker [![Packagist License][badge_license]](LICENSE.md) [![For Laravel 5][badge_laravel]][link-github-repo]
 
 [![Travis Status][badge_build]][link-travis]
 [![HHVM Status][badge_hhvm]][link-hhvm]
@@ -13,7 +13,7 @@
 
 *By [ARCANEDEV&copy;](http://www.arcanedev.net/)*
 
-Package description.
+Spam Blocker is a package that allows you to block referral spammers.
 
 ## Table of contents
 
@@ -22,14 +22,18 @@ Package description.
 3. [Configuration](_docs/3.Configuration.md)
 4. [Usage](_docs/4.Usage.md)
 
+### Features
+
+  * Easy setup &amp; configuration.
+  * Well documented &amp; IDE Friendly.
+  * Well tested with maximum code quality.
+  * Laravel `5.0 | 5.1 | 5.2` are supported.
+  * Made with :heart: &amp; :coffee:.
+  
 ## TODOS
 
   - [ ] Documentation.
-  - [ ] 100% Code coverage + Maximum code quality.
   - [ ] Laravel 5.3 support.
-  - [ ] Laravel 5.2 support.
-  - [ ] Laravel 5.1 support.
-  - [ ] Well documented package (IDE Friendly).
 
 ## Contribution
 
@@ -45,23 +49,23 @@ If you discover any security related issues, please email arcanedev.maroc@gmail.
 - [All Contributors][link-contributors]
 
 [badge_laravel]:      https://img.shields.io/badge/For-Laravel%205.1|5.2-orange.svg?style=flat-square
-[badge_license]:      https://img.shields.io/packagist/l/arcanedev/package.svg?style=flat-square
-[badge_build]:        https://img.shields.io/travis/ARCANEDEV/Package.svg?style=flat-square
-[badge_hhvm]:         https://img.shields.io/hhvm/arcanedev/package.svg?style=flat-square
-[badge_coverage]:     https://img.shields.io/scrutinizer/coverage/g/ARCANEDEV/Package.svg?style=flat-square
-[badge_quality]:      https://img.shields.io/scrutinizer/g/ARCANEDEV/Package.svg?style=flat-square
+[badge_license]:      https://img.shields.io/packagist/l/arcanedev/spam-blocker.svg?style=flat-square
+[badge_build]:        https://img.shields.io/travis/ARCANEDEV/SpamBlocker.svg?style=flat-square
+[badge_hhvm]:         https://img.shields.io/hhvm/arcanedev/spam-blocker.svg?style=flat-square
+[badge_coverage]:     https://img.shields.io/scrutinizer/coverage/g/ARCANEDEV/SpamBlocker.svg?style=flat-square
+[badge_quality]:      https://img.shields.io/scrutinizer/g/ARCANEDEV/SpamBlocker.svg?style=flat-square
 [badge_insight]:      https://img.shields.io/sensiolabs/i/[id].svg?style=flat-square
-[badge_issues]:       https://img.shields.io/github/issues/ARCANEDEV/Package.svg?style=flat-square
-[badge_package]:      https://img.shields.io/badge/package-arcanedev/package-blue.svg?style=flat-square
-[badge_release]:      https://img.shields.io/packagist/v/arcanedev/package.svg?style=flat-square
-[badge_downloads]:    https://img.shields.io/packagist/dt/arcanedev/package.svg?style=flat-square
+[badge_issues]:       https://img.shields.io/github/issues/ARCANEDEV/SpamBlocker.svg?style=flat-square
+[badge_package]:      https://img.shields.io/badge/package-arcanedev/spam--blocker-blue.svg?style=flat-square
+[badge_release]:      https://img.shields.io/packagist/v/arcanedev/spam-blocker.svg?style=flat-square
+[badge_downloads]:    https://img.shields.io/packagist/dt/arcanedev/spam-blocker.svg?style=flat-square
 
 [link-author]:        https://github.com/arcanedev-maroc
-[link-github-repo]:   https://github.com/ARCANEDEV/Package
-[link-github-issues]: https://github.com/ARCANEDEV/Package/issues
-[link-contributors]:  https://github.com/ARCANEDEV/Package/graphs/contributors
-[link-packagist]:     https://packagist.org/packages/arcanedev/package
-[link-travis]:        https://travis-ci.org/ARCANEDEV/Package
-[link-hhvm]:          http://hhvm.h4cc.de/package/arcanedev/package
-[link-scrutinizer]:   https://scrutinizer-ci.com/g/ARCANEDEV/Package/?branch=master
+[link-github-repo]:   https://github.com/ARCANEDEV/SpamBlocker
+[link-github-issues]: https://github.com/ARCANEDEV/SpamBlocker/issues
+[link-contributors]:  https://github.com/ARCANEDEV/SpamBlocker/graphs/contributors
+[link-packagist]:     https://packagist.org/packages/arcanedev/spam-blocker
+[link-travis]:        https://travis-ci.org/ARCANEDEV/SpamBlocker
+[link-hhvm]:          http://hhvm.h4cc.de/package/arcanedev/spam-blocker
+[link-scrutinizer]:   https://scrutinizer-ci.com/g/ARCANEDEV/SpamBlocker/?branch=master
 [link-insight]:       https://insight.sensiolabs.com/projects/[id]
