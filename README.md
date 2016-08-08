@@ -54,7 +54,7 @@ If you discover any security related issues, please email arcanedev.maroc@gmail.
 [badge_hhvm]:         https://img.shields.io/hhvm/arcanedev/spam-blocker.svg?style=flat-square
 [badge_coverage]:     https://img.shields.io/scrutinizer/coverage/g/ARCANEDEV/SpamBlocker.svg?style=flat-square
 [badge_quality]:      https://img.shields.io/scrutinizer/g/ARCANEDEV/SpamBlocker.svg?style=flat-square
-[badge_insight]:      https://img.shields.io/sensiolabs/i/[id].svg?style=flat-square
+[badge_insight]:      https://img.shields.io/sensiolabs/i/e689a60e-fa4f-4905-8219-d628bb8d74e2.svg?style=flat-square
 [badge_issues]:       https://img.shields.io/github/issues/ARCANEDEV/SpamBlocker.svg?style=flat-square
 [badge_package]:      https://img.shields.io/badge/package-arcanedev/spam--blocker-blue.svg?style=flat-square
 [badge_release]:      https://img.shields.io/packagist/v/arcanedev/spam-blocker.svg?style=flat-square
@@ -68,4 +68,4 @@ If you discover any security related issues, please email arcanedev.maroc@gmail.
 [link-travis]:        https://travis-ci.org/ARCANEDEV/SpamBlocker
 [link-hhvm]:          http://hhvm.h4cc.de/package/arcanedev/spam-blocker
 [link-scrutinizer]:   https://scrutinizer-ci.com/g/ARCANEDEV/SpamBlocker/?branch=master
-[link-insight]:       https://insight.sensiolabs.com/projects/[id]
+[link-insight]:       https://insight.sensiolabs.com/projects/e689a60e-fa4f-4905-8219-d628bb8d74e2
