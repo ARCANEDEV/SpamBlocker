@@ -27,13 +27,12 @@ Spam Blocker is a package that allows you to block referral spammers.
   * Easy setup &amp; configuration.
   * Well documented &amp; IDE Friendly.
   * Well tested with maximum code quality.
-  * Laravel `5.1 | 5.2` are supported.
+  * Laravel `5.1 | 5.2 | 5.3` are supported.
   * Made with :heart: &amp; :coffee:.
   
 ## TODOS
 
   - [ ] Documentation.
-  - [ ] Laravel 5.3 support.
 
 ## Contribution
 
@@ -48,7 +47,7 @@ If you discover any security related issues, please email arcanedev.maroc@gmail.
 - [ARCANEDEV][link-author]
 - [All Contributors][link-contributors]
 
-[badge_laravel]:      https://img.shields.io/badge/For-Laravel%205.1|5.2-orange.svg?style=flat-square
+[badge_laravel]:      https://img.shields.io/badge/For-Laravel%205.1|5.2|5.3-orange.svg?style=flat-square
 [badge_license]:      https://img.shields.io/packagist/l/arcanedev/spam-blocker.svg?style=flat-square
 [badge_build]:        https://img.shields.io/travis/ARCANEDEV/SpamBlocker.svg?style=flat-square
 [badge_hhvm]:         https://img.shields.io/hhvm/arcanedev/spam-blocker.svg?style=flat-square
