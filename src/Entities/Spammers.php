@@ -19,11 +19,11 @@ class Spammers extends Collection
      *
      * @param  array  $spammers
      *
-     * @return static
+     * @return self
      */
     public static function load(array $spammers)
     {
-        return static::make()->includes($spammers);
+        return (new self)->includes($spammers);
     }
 
     /**
@@ -63,7 +63,7 @@ class Spammers extends Collection
      *
      * @param  string  $host
      *
-     * @return static
+     * @return self
      */
     public function blockOne($host)
     {
@@ -77,7 +77,7 @@ class Spammers extends Collection
      *
      * @param  string  $host
      *
-     * @return static
+     * @return self
      */
     public function allowOne($host)
     {
@@ -92,14 +92,13 @@ class Spammers extends Collection
      * @param  string  $host
      * @param  bool    $blocked
      *
-     * @return static
+     * @return self
      */
     private function addOne($host, $blocked = true)
     {
-        $this->push([
-            'host'  => trim(utf8_encode($host)),
-            'block' => $blocked,
-        ]);
+        $spammer = Spammer::make($host, $blocked);
+
+        $this->put($spammer->host(), $spammer);
 
         return $this;
     }
@@ -110,17 +109,17 @@ class Spammers extends Collection
      * @param  string  $host
      * @param  bool    $blocked
      *
-     * @return static
+     * @return self
      */
     private function updateOne($host, $blocked = true)
     {
-        $this->items = $this->map(function ($spammer) use ($host, $blocked) {
-            if ($spammer['host'] === $host && $spammer['block'] !== $blocked) {
-                $spammer['block'] = $blocked;
-            }
+        if ($this->exists($host)) {
+            /** @var  \Arcanedev\SpamBlocker\Entities\Spammer  $spammer */
+            $spammer = $this->get($host);
 
-            return $spammer;
-        })->all();
+            if ($spammer->isBlocked() !== $blocked)
+                $this->put($spammer->host(), $spammer->setBlocked($blocked));
+        }
 
         return $this;
     }
@@ -130,12 +129,13 @@ class Spammers extends Collection
      *
      * @param  string  $host
      *
-     * @return array|null
+     * @return \Arcanedev\SpamBlocker\Entities\Spammer|null
      */
     public function getOne($host)
     {
-        return $this->where('host', trim(utf8_encode($host)))
-            ->first();
+        return $this->get(
+            $this->sanitizeHost($host)
+        );
     }
 
     /**
@@ -144,14 +144,26 @@ class Spammers extends Collection
      * @param  array  $hosts
      * @param  bool   $strict
      *
-     * @return static
+     * @return self
      */
     public function whereHostIn(array $hosts, $strict = false)
     {
         $values = $this->getArrayableItems($hosts);
 
-        return $this->filter(function ($item) use ($values, $strict) {
-            return in_array(data_get($item, 'host'), $values, $strict);
+        return $this->filter(function (Spammer $spammer) use ($values, $strict) {
+            return in_array($spammer->host(), $values, $strict);
+        });
+    }
+
+    /**
+     * Get only the blocked spammers.
+     *
+     * @return self
+     */
+    public function whereBlocked()
+    {
+        return $this->filter(function (Spammer $spammer) {
+            return $spammer->isBlocked();
         });
     }
 
@@ -164,6 +176,24 @@ class Spammers extends Collection
      */
     public function exists($host)
     {
-        return $this->getOne($host) !== null;
+        return $this->has(
+            $this->sanitizeHost($host)
+        );
+    }
+
+    /* ------------------------------------------------------------------------------------------------
+     |  Other Functions
+     | ------------------------------------------------------------------------------------------------
+     */
+    /**
+     * Sanitize the host url.
+     *
+     * @param  string  $host
+     *
+     * @return string
+     */
+    private function sanitizeHost($host)
+    {
+        return trim(utf8_encode($host));
     }
 }

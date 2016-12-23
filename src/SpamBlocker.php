@@ -3,6 +3,7 @@
 use Arcanedev\SpamBlocker\Contracts\SpamBlocker as SpamBlockerContract;
 use Arcanedev\SpamBlocker\Entities\Spammers;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Cache;
 
 /**
  * Class     SpamBlocker
@@ -44,6 +45,20 @@ class SpamBlocker implements SpamBlockerContract
      */
     protected $spammers;
 
+    /**
+     * Cache key.
+     *
+     * @var  string
+     */
+    protected $cacheKey;
+
+    /**
+     * Cache expiration duration.
+     *
+     * @var int
+     */
+    protected $cacheExpires;
+
     /* ------------------------------------------------------------------------------------------------
      |  Constructor
      | ------------------------------------------------------------------------------------------------
@@ -58,6 +73,8 @@ class SpamBlocker implements SpamBlockerContract
         $this->setSource(Arr::get($config, 'source', null));
         $this->setIncludes(Arr::get($config, 'include', []));
         $this->setExcludes(Arr::get($config, 'exclude', []));
+        $this->cacheKey     = Arr::get($config, 'cache.key', 'arcanedev.spammers');
+        $this->cacheExpires = Arr::get($config, 'cache.expires', 24 * 60);
 
         $this->load();
     }
@@ -161,15 +178,13 @@ class SpamBlocker implements SpamBlockerContract
      */
     public function load()
     {
-        if ( ! file_exists($this->source)) {
-            throw new Exceptions\SpammerSourceNotFound(
-                "The spammers source file not found in [{$this->source}]."
-            );
-        }
+        $this->checkSource();
 
-        $this->spammers = Spammers::load(
-            file($this->source, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES)
-        );
+        $this->spammers = $this->cacheSpammers(function () {
+            return Spammers::load(
+                file($this->source, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES)
+            );
+        });
 
         return $this;
     }
@@ -249,7 +264,7 @@ class SpamBlocker implements SpamBlockerContract
 
         return $this->spammers()
             ->whereHostIn([$fullDomain, $rootDomain])
-            ->where('block', true)
+            ->whereBlocked()
             ->count() > 0;
     }
 
@@ -258,7 +273,7 @@ class SpamBlocker implements SpamBlockerContract
      *
      * @param  string  $host
      *
-     * @return array|null
+     * @return \Arcanedev\SpamBlocker\Entities\Spammer|null
      */
     public function getSpammer($host)
     {
@@ -272,7 +287,8 @@ class SpamBlocker implements SpamBlockerContract
      */
     public function reset()
     {
-        return $this->setIncludes([])
+        return $this->resetCache()
+             ->setIncludes([])
              ->setExcludes([])
              ->load();
     }
@@ -308,7 +324,43 @@ class SpamBlocker implements SpamBlockerContract
         $count       = count($domainParts);
 
         return $count > 1
-            ? $domainParts[$count - 2] . '.' . $domainParts[$count - 1]
+            ? $domainParts[$count - 2].'.'.$domainParts[$count - 1]
             : $domainParts[0];
+    }
+
+    /**
+     * Reset the cache.
+     *
+     * @return self
+     */
+    protected function resetCache()
+    {
+        Cache::forget($this->cacheKey);
+
+        return $this;
+    }
+
+    /**
+     * Cache the spammers.
+     *
+     * @param  \Closure  $callback
+     *
+     * @return \Arcanedev\SpamBlocker\Entities\Spammers
+     */
+    private function cacheSpammers(\Closure $callback)
+    {
+        return Cache::remember($this->cacheKey, $this->cacheExpires, $callback);
+    }
+
+    /**
+     * Check the source file.
+     */
+    private function checkSource()
+    {
+        if ( ! file_exists($this->source)) {
+            throw new Exceptions\SpammerSourceNotFound(
+                "The spammers source file not found in [{$this->source}]."
+            );
+        }
     }
 }

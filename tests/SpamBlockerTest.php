@@ -132,10 +132,8 @@ class SpamBlockerTest extends TestCase
 
         $spammer = $this->blocker->getSpammer($host);
 
-        $this->assertArrayHasKey('host', $spammer);
-        $this->assertArrayHasKey('block', $spammer);
-        $this->assertSame($host, $spammer['host']);
-        $this->assertTrue($spammer['block']);
+        $this->assertSame($host, $spammer->host());
+        $this->assertTrue($spammer->isBlocked());
     }
 
     /** @test */
@@ -150,10 +148,8 @@ class SpamBlockerTest extends TestCase
 
         $spammer = $this->blocker->getSpammer($host);
 
-        $this->assertArrayHasKey('host', $spammer);
-        $this->assertArrayHasKey('block', $spammer);
-        $this->assertSame($host, $spammer['host']);
-        $this->assertFalse($spammer['block']);
+        $this->assertSame($host, $spammer->host());
+        $this->assertFalse($spammer->isBlocked());
     }
 
     /** @test */
