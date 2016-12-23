@@ -119,7 +119,7 @@ interface SpamBlocker
      *
      * @param  string  $host
      *
-     * @return array|null
+     * @return \Arcanedev\SpamBlocker\Entities\Spammer|null
      */
     public function getSpammer($host);
 
