@@ -45,17 +45,7 @@ class SpamBlockerServiceProvider extends ServiceProvider
     public function register()
     {
         $this->registerConfig();
-
-        $this->singleton('arcanedev.spam-blocker', function ($app) {
-            /** @var \Illuminate\Contracts\Config\Repository $config */
-            $config = $app['config'];
-
-            return new SpamBlocker(
-                $config->get('spam-blocker')
-            );
-        });
-
-        $this->bind(Contracts\SpamBlocker::class, 'arcanedev.spam-blocker');
+        $this->registerSpamBlocker();
     }
 
     /**
@@ -64,6 +54,8 @@ class SpamBlockerServiceProvider extends ServiceProvider
     public function boot()
     {
         parent::boot();
+
+        $this->publishConfig();
     }
 
     /**
@@ -77,5 +69,26 @@ class SpamBlockerServiceProvider extends ServiceProvider
             'arcanedev.spam-blocker',
             Contracts\SpamBlocker::class
         ];
+    }
+
+    /* ------------------------------------------------------------------------------------------------
+     |  Other Functions
+     | ------------------------------------------------------------------------------------------------
+     */
+    /**
+     * Register the spam blocker
+     */
+    private function registerSpamBlocker()
+    {
+        $this->singleton(Contracts\SpamBlocker::class, function ($app) {
+            /** @var  \Illuminate\Contracts\Config\Repository  $config */
+            $config = $app['config'];
+
+            return new SpamBlocker(
+                $config->get('spam-blocker')
+            );
+        });
+
+        $this->singleton('arcanedev.spam-blocker', Contracts\SpamBlocker::class);
     }
 }

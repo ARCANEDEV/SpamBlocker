@@ -68,10 +68,8 @@ class SpammersTest extends TestCase
         $this->assertCount(count($spammers), $this->spammers);
 
         foreach ($this->spammers as $spammer) {
-            $this->assertArrayHasKey('host', $spammer);
-            $this->assertArrayHasKey('block', $spammer);
-            $this->assertTrue(in_array($spammer['host'], $spammers));
-            $this->assertTrue($spammer['block']);
+            $this->assertTrue(in_array($spammer->host(), $spammers));
+            $this->assertTrue($spammer->isBlocked());
         }
     }
 
@@ -86,10 +84,8 @@ class SpammersTest extends TestCase
 
         $spammer = $this->spammers->getOne($host);
 
-        $this->assertArrayHasKey('host', $spammer);
-        $this->assertArrayHasKey('block', $spammer);
-        $this->assertSame($host, $spammer['host']);
-        $this->assertTrue($spammer['block']);
+        $this->assertSame($host, $spammer->host());
+        $this->assertTrue($spammer->isBlocked());
     }
 
     /** @test */
@@ -108,10 +104,8 @@ class SpammersTest extends TestCase
 
             $spammer = $this->spammers->getOne($host);
 
-            $this->assertArrayHasKey('host', $spammer);
-            $this->assertArrayHasKey('block', $spammer);
-            $this->assertSame($host, $spammer['host']);
-            $this->assertTrue($spammer['block']);
+            $this->assertSame($host, $spammer->host());
+            $this->assertTrue($spammer->isBlocked());
         }
     }
 
@@ -126,10 +120,8 @@ class SpammersTest extends TestCase
 
         $spammer = $this->spammers->getOne($host);
 
-        $this->assertArrayHasKey('host', $spammer);
-        $this->assertArrayHasKey('block', $spammer);
-        $this->assertSame($host, $spammer['host']);
-        $this->assertFalse($spammer['block']);
+        $this->assertSame($host, $spammer->host());
+        $this->assertFalse($spammer->isBlocked());
     }
 
     /** @test */
@@ -148,10 +140,8 @@ class SpammersTest extends TestCase
 
             $spammer = $this->spammers->getOne($host);
 
-            $this->assertArrayHasKey('host', $spammer);
-            $this->assertArrayHasKey('block', $spammer);
-            $this->assertSame($host, $spammer['host']);
-            $this->assertFalse($spammer['block']);
+            $this->assertSame($host, $spammer->host());
+            $this->assertFalse($spammer->isBlocked());
         }
     }
 
@@ -163,18 +153,14 @@ class SpammersTest extends TestCase
         $this->spammers->blockOne($host);
         $spammer = $this->spammers->getOne($host);
 
-        $this->assertArrayHasKey('host', $spammer);
-        $this->assertArrayHasKey('block', $spammer);
-        $this->assertSame($host, $spammer['host']);
-        $this->assertTrue($spammer['block']);
+        $this->assertSame($host, $spammer->host());
+        $this->assertTrue($spammer->isBlocked());
 
         $this->spammers->allowOne($host);
         $spammer = $this->spammers->getOne($host);
 
-        $this->assertArrayHasKey('host', $spammer);
-        $this->assertArrayHasKey('block', $spammer);
-        $this->assertSame($host, $spammer['host']);
-        $this->assertFalse($spammer['block']);
+        $this->assertSame($host, $spammer->host());
+        $this->assertFalse($spammer->isBlocked());
     }
 
     /** @test */
@@ -185,17 +171,13 @@ class SpammersTest extends TestCase
         $this->spammers->allowOne($host);
         $spammer = $this->spammers->getOne($host);
 
-        $this->assertArrayHasKey('host', $spammer);
-        $this->assertArrayHasKey('block', $spammer);
-        $this->assertSame($host, $spammer['host']);
-        $this->assertFalse($spammer['block']);
+        $this->assertSame($host, $spammer->host());
+        $this->assertFalse($spammer->isBlocked());
 
         $this->spammers->blockOne($host);
         $spammer = $this->spammers->getOne($host);
 
-        $this->assertArrayHasKey('host', $spammer);
-        $this->assertArrayHasKey('block', $spammer);
-        $this->assertSame($host, $spammer['host']);
-        $this->assertTrue($spammer['block']);
+        $this->assertSame($host, $spammer->host());
+        $this->assertTrue($spammer->isBlocked());
     }
 }
