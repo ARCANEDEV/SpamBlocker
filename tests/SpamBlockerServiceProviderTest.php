@@ -58,7 +58,6 @@ class SpamBlockerServiceProviderTest extends TestCase
     public function it_can_provides()
     {
         $expected = [
-            'arcanedev.spam-blocker',
             \Arcanedev\SpamBlocker\Contracts\SpamBlocker::class,
         ];
 

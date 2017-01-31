@@ -23,7 +23,7 @@ class SpamBlockerTest extends TestCase
     {
         parent::setUp();
 
-        $this->blocker = $this->app->make('arcanedev.spam-blocker');
+        $this->blocker = $this->app->make(\Arcanedev\SpamBlocker\Contracts\SpamBlocker::class);
     }
 
     public function tearDown()

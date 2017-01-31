@@ -45,6 +45,7 @@ class SpamBlockerServiceProvider extends ServiceProvider
     public function register()
     {
         $this->registerConfig();
+
         $this->registerSpamBlocker();
     }
 
@@ -66,7 +67,6 @@ class SpamBlockerServiceProvider extends ServiceProvider
     public function provides()
     {
         return [
-            'arcanedev.spam-blocker',
             Contracts\SpamBlocker::class
         ];
     }
@@ -88,7 +88,5 @@ class SpamBlockerServiceProvider extends ServiceProvider
                 $config->get('spam-blocker')
             );
         });
-
-        $this->singleton('arcanedev.spam-blocker', Contracts\SpamBlocker::class);
     }
 }

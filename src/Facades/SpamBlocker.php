@@ -15,5 +15,5 @@ class SpamBlocker extends Facade
      *
      * @return string
      */
-    protected static function getFacadeAccessor() { return 'arcanedev.spam-blocker'; }
+    protected static function getFacadeAccessor() { return \Arcanedev\SpamBlocker\Contracts\SpamBlocker::class; }
 }
