@@ -16,10 +16,9 @@ Spam Blocker is a package that allows you to block referral spammers.
 
 ## Table of contents
 
-1. [Requirements](_docs/1.Requirements.md)
-2. [Installation and Setup](_docs/2.Installation-and-Setup.md)
-3. [Configuration](_docs/3.Configuration.md)
-4. [Usage](_docs/4.Usage.md)
+  1. [Installation and Setup](_docs/1.Installation-and-Setup.md)
+  2. [Configuration](_docs/2.Configuration.md)
+  3. [Usage](_docs/3.Usage.md)
 
 ### Features
 
