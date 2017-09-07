@@ -1,6 +1,6 @@
 <?php namespace Arcanedev\SpamBlocker\Tests;
 
-use Orchestra\Testbench\BrowserKit\TestCase as BaseTestCase;
+use Orchestra\Testbench\TestCase as BaseTestCase;
 
 /**
  * Class     TestCase
@@ -10,24 +10,11 @@ use Orchestra\Testbench\BrowserKit\TestCase as BaseTestCase;
  */
 abstract class TestCase extends BaseTestCase
 {
-    /* ------------------------------------------------------------------------------------------------
-     |  Main Functions
-     | ------------------------------------------------------------------------------------------------
+    /* -----------------------------------------------------------------
+     |  Main Methods
+     | -----------------------------------------------------------------
      */
-    public function setUp()
-    {
-        parent::setUp();
-    }
 
-    public function tearDown()
-    {
-        parent::tearDown();
-    }
-
-    /* ------------------------------------------------------------------------------------------------
-     |  Laravel Functions
-     | ------------------------------------------------------------------------------------------------
-     */
     /**
      * Get package providers.
      *
@@ -74,6 +61,11 @@ abstract class TestCase extends BaseTestCase
 
         $this->registerRoutes($app);
     }
+
+    /* -----------------------------------------------------------------
+     |  Other Methods
+     | -----------------------------------------------------------------
+     */
 
     /**
      * Register routes.

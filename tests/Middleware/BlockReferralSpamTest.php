@@ -10,47 +10,48 @@ use Arcanedev\SpamBlocker\Tests\TestCase;
  */
 class BlockReferralSpamTest extends TestCase
 {
-    /* ------------------------------------------------------------------------------------------------
-     |  Test Functions
-     | ------------------------------------------------------------------------------------------------
+    /* -----------------------------------------------------------------
+     |  Tests
+     | -----------------------------------------------------------------
      */
+
     /** @test */
     public function it_can_allow_request()
     {
-        $this->get('/', [
+        $response = $this->get('/', [
             'HTTP_REFERER' => 'http://www.google.com',
         ]);
 
-        $this->assertResponseOk();
+        $response->assertSuccessful();
     }
 
     /** @test */
     public function it_must_block_spammer_request()
     {
-        $this->get('/', [
+        $response = $this->get('/', [
             'HTTP_REFERER' => 'http://www.0n-line.tv',
         ]);
 
-        $this->assertResponseStatus(401);
+        $response->assertStatus(401);
     }
 
     /** @test */
     public function it_must_block_spammer_request_with_subdomain()
     {
-        $this->get('/', [
+        $response = $this->get('/', [
             'HTTP_REFERER' => 'http://cubook.supernew.org',
         ]);
 
-        $this->assertResponseStatus(401);
+        $response->assertStatus(401);
     }
 
     /** @test */
     public function it_must_block_spammer_request_with_subdomain_and_not_utf8()
     {
-        $this->get('/', [
+        $response = $this->get('/', [
             'HTTP_REFERER' => 'http://с.новым.годом.рф',
         ]);
 
-        $this->assertResponseStatus(401);
+        $response->assertStatus(401);
     }
 }
