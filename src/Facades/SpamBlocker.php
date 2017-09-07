@@ -1,5 +1,6 @@
 <?php namespace Arcanedev\SpamBlocker\Facades;
 
+use Arcanedev\SpamBlocker\Contracts\SpamBlocker as SpamBlockerContract;
 use Illuminate\Support\Facades\Facade;
 
 /**
@@ -15,5 +16,5 @@ class SpamBlocker extends Facade
      *
      * @return string
      */
-    protected static function getFacadeAccessor() { return \Arcanedev\SpamBlocker\Contracts\SpamBlocker::class; }
+    protected static function getFacadeAccessor() { return SpamBlockerContract::class; }
 }

@@ -2,6 +2,7 @@
 
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
+use JsonSerializable;
 
 /**
  * Class     Spammer
@@ -9,22 +10,24 @@ use Illuminate\Contracts\Support\Jsonable;
  * @package  Entities
  * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
  */
-class Spammer implements Arrayable, Jsonable
+class Spammer implements Arrayable, Jsonable, JsonSerializable
 {
-    /* ------------------------------------------------------------------------------------------------
+    /* -----------------------------------------------------------------
      |  Properties
-     | ------------------------------------------------------------------------------------------------
+     | -----------------------------------------------------------------
      */
+
     /** @var string */
     protected $host;
 
     /** @var bool */
     protected $blocked;
 
-    /* ------------------------------------------------------------------------------------------------
+    /* -----------------------------------------------------------------
      |  Constructor
-     | ------------------------------------------------------------------------------------------------
+     | -----------------------------------------------------------------
      */
+
     /**
      * Spammer constructor.
      *
@@ -37,10 +40,11 @@ class Spammer implements Arrayable, Jsonable
         $this->setBlocked($blocked);
     }
 
-    /* ------------------------------------------------------------------------------------------------
+    /* -----------------------------------------------------------------
      |  Getters & Setters
-     | ------------------------------------------------------------------------------------------------
+     | -----------------------------------------------------------------
      */
+
     /**
      * Get the host url.
      *
@@ -89,10 +93,11 @@ class Spammer implements Arrayable, Jsonable
         return $this;
     }
 
-    /* ------------------------------------------------------------------------------------------------
-     |  Main Functions
-     | ------------------------------------------------------------------------------------------------
+    /* -----------------------------------------------------------------
+     |  Main Methods
+     | -----------------------------------------------------------------
      */
+
     /**
      * Make a spammer instance.
      *
@@ -118,10 +123,11 @@ class Spammer implements Arrayable, Jsonable
         return $this->host() === trim(utf8_encode($host));
     }
 
-    /* ------------------------------------------------------------------------------------------------
-     |  Other Functions
-     | ------------------------------------------------------------------------------------------------
+    /* -----------------------------------------------------------------
+     |  Other Methods
+     | -----------------------------------------------------------------
      */
+
     /**
      * Get the instance as an array.
      *
@@ -136,6 +142,16 @@ class Spammer implements Arrayable, Jsonable
     }
 
     /**
+     * Convert the object into something JSON serializable.
+     *
+     * @return array
+     */
+    public function jsonSerialize()
+    {
+        return $this->toArray();
+    }
+
+    /**
      * Convert the object to its JSON representation.
      *
      * @param  int  $options
@@ -144,6 +160,6 @@ class Spammer implements Arrayable, Jsonable
      */
     public function toJson($options = 0)
     {
-        return json_encode($this->toArray(), $options);
+        return json_encode($this->jsonSerialize(), $options);
     }
 }
