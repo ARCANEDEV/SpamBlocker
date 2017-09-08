@@ -16,7 +16,7 @@ interface SpamBlocker
     /**
      * Get the loaded spammers.
      *
-     * @return \Arcanedev\SpamBlocker\Entities\Spammers
+     * @return \Arcanedev\SpamBlocker\Entities\SpammerCollection
      */
     public function spammers();
 
@@ -94,7 +94,7 @@ interface SpamBlocker
     /**
      * Get all spammers (allowed and blocked one).
      *
-     * @return \Arcanedev\SpamBlocker\Entities\Spammers
+     * @return \Arcanedev\SpamBlocker\Entities\SpammerCollection
      */
     public function all();
 

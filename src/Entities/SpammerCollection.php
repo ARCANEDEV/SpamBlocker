@@ -1,14 +1,14 @@
 <?php namespace Arcanedev\SpamBlocker\Entities;
 
-use Arcanedev\Support\Collection;
+use Illuminate\Support\Collection;
 
 /**
- * Class     Spammers
+ * Class     SpammerCollection
  *
  * @package  Arcanedev\SpamBlocker\Entities
  * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
  */
-class Spammers extends Collection
+class SpammerCollection extends Collection
 {
     /* -----------------------------------------------------------------
      |  Main Methods
