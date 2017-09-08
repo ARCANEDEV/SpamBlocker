@@ -1,11 +1,11 @@
-<?php namespace Arcanedev\SpamBlocker\Tests\Middleware;
+<?php namespace Arcanedev\SpamBlocker\Tests\Http\Middleware;
 
 use Arcanedev\SpamBlocker\Tests\TestCase;
 
 /**
  * Class     BlockReferralSpamTest
  *
- * @package  Arcanedev\SpamBlocker\Tests\Middleware
+ * @package  Arcanedev\SpamBlocker\Tests\Http\Middleware
  * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
  */
 class BlockReferralSpamTest extends TestCase
