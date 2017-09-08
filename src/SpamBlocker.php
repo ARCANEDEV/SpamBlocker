@@ -1,7 +1,8 @@
 <?php namespace Arcanedev\SpamBlocker;
 
 use Arcanedev\SpamBlocker\Contracts\SpamBlocker as SpamBlockerContract;
-use Arcanedev\SpamBlocker\Entities\Spammers;
+use Arcanedev\SpamBlocker\Entities\SpammerCollection;
+use Closure;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 
@@ -42,7 +43,7 @@ class SpamBlocker implements SpamBlockerContract
     /**
      * The spammers collection.
      *
-     * @var \Arcanedev\SpamBlocker\Entities\Spammers
+     * @var \Arcanedev\SpamBlocker\Entities\SpammerCollection
      */
     protected $spammers;
 
@@ -89,7 +90,7 @@ class SpamBlocker implements SpamBlockerContract
     /**
      * Get the loaded spammers.
      *
-     * @return \Arcanedev\SpamBlocker\Entities\Spammers
+     * @return \Arcanedev\SpamBlocker\Entities\SpammerCollection
      */
     public function spammers()
     {
@@ -185,7 +186,7 @@ class SpamBlocker implements SpamBlockerContract
         $this->checkSource();
 
         $this->spammers = $this->cacheSpammers(function () {
-            return Spammers::load(
+            return SpammerCollection::load(
                 file($this->source, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES)
             );
         });
@@ -228,7 +229,7 @@ class SpamBlocker implements SpamBlockerContract
     /**
      * Get all spammers (allowed and blocked ones).
      *
-     * @return \Arcanedev\SpamBlocker\Entities\Spammers
+     * @return \Arcanedev\SpamBlocker\Entities\SpammerCollection
      */
     public function all()
     {
@@ -350,9 +351,9 @@ class SpamBlocker implements SpamBlockerContract
      *
      * @param  \Closure  $callback
      *
-     * @return \Arcanedev\SpamBlocker\Entities\Spammers
+     * @return \Arcanedev\SpamBlocker\Entities\SpammerCollection
      */
-    private function cacheSpammers(\Closure $callback)
+    private function cacheSpammers(Closure $callback)
     {
         return Cache::remember($this->cacheKey, $this->cacheExpires, $callback);
     }

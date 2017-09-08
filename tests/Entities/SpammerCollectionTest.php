@@ -1,22 +1,22 @@
 <?php namespace Arcanedev\SpamBlocker\Tests\Entities;
 
-use Arcanedev\SpamBlocker\Entities\Spammers;
+use Arcanedev\SpamBlocker\Entities\SpammerCollection;
 use Arcanedev\SpamBlocker\Tests\TestCase;
 
 /**
- * Class     SpammersTest
+ * Class     SpammerCollectionTest
  *
  * @package  Arcanedev\SpamBlocker\Tests\Entities
  * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
  */
-class SpammersTest extends TestCase
+class SpammerCollectionTest extends TestCase
 {
     /* -----------------------------------------------------------------
      |  Properties
      | -----------------------------------------------------------------
      */
 
-    /** @var  \Arcanedev\SpamBlocker\Entities\Spammers */
+    /** @var  \Arcanedev\SpamBlocker\Entities\SpammerCollection */
     private $spammers;
 
     /* -----------------------------------------------------------------
@@ -28,7 +28,7 @@ class SpammersTest extends TestCase
     {
         parent::setUp();
 
-        $this->spammers = new Spammers;
+        $this->spammers = new SpammerCollection;
     }
 
     public function tearDown()
@@ -48,8 +48,7 @@ class SpammersTest extends TestCase
     {
         $expectations = [
             \Illuminate\Support\Collection::class,
-            \Arcanedev\Support\Collection::class,
-            \Arcanedev\SpamBlocker\Entities\Spammers::class,
+            \Arcanedev\SpamBlocker\Entities\SpammerCollection::class,
         ];
 
         foreach ($expectations as $expected) {
@@ -66,7 +65,7 @@ class SpammersTest extends TestCase
             'spammer-three.com',
         ];
 
-        $this->spammers = Spammers::load($spammers);
+        $this->spammers = SpammerCollection::load($spammers);
 
         $this->assertCount(count($spammers), $this->spammers);
 

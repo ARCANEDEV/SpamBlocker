@@ -73,7 +73,7 @@ class SpamBlockerTest extends TestCase
         $spammers = $this->blocker->spammers();
 
         $this->assertInstanceOf(
-            \Arcanedev\SpamBlocker\Entities\Spammers::class,
+            \Arcanedev\SpamBlocker\Entities\SpammerCollection::class,
             $spammers
         );
 
