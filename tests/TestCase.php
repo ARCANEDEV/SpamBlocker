@@ -75,7 +75,7 @@ abstract class TestCase extends BaseTestCase
     private function registerRoutes($app)
     {
         $app->make(\Illuminate\Contracts\Http\Kernel::class)
-            ->pushMiddleware(\Arcanedev\SpamBlocker\Middleware\BlockReferralSpam::class);
+            ->pushMiddleware(\Arcanedev\SpamBlocker\Http\Middleware\BlockReferralSpam::class);
 
         /** @var \Illuminate\Contracts\Routing\Registrar $router */
         $router = $app['router'];

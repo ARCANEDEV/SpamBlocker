@@ -1,4 +1,4 @@
-<?php namespace Arcanedev\SpamBlocker\Middleware;
+<?php namespace Arcanedev\SpamBlocker\Http\Middleware;
 
 use Arcanedev\SpamBlocker\Contracts\SpamBlocker;
 use Closure;
@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 /**
  * Class     BlockReferralSpam
  *
- * @package  Arcanedev\LaravelReferralSpamBlocker\Middleware
+ * @package  Arcanedev\SpamBlocker\Http\Middleware
  * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
  */
 class BlockReferralSpam
@@ -18,7 +18,7 @@ class BlockReferralSpam
      */
 
     /** @var  \Arcanedev\SpamBlocker\Contracts\SpamBlocker */
-    private $blocker;
+    protected $blocker;
 
     /* -----------------------------------------------------------------
      |  Constructor
@@ -53,7 +53,22 @@ class BlockReferralSpam
         $referer = $request->headers->get('referer');
 
         return $this->blocker->isBlocked($referer)
-            ? response('Unauthorized.', 401)
+            ? $this->getBlockedResponse()
             : $next($request);
+    }
+
+    /* -----------------------------------------------------------------
+     |  Other Methods
+     | -----------------------------------------------------------------
+     */
+
+    /**
+     * Get the blocked referer's response.
+     *
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
+    protected function getBlockedResponse()
+    {
+        return response('Unauthorized.', 401);
     }
 }
