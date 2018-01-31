@@ -14,9 +14,9 @@
     "type":    "library",
     "license": "MIT",
     "require": {
-        "php":                           ">=7.0",
-        "arcanedev/support":             "~4.2.0",
-        "piwik/referrer-spam-blacklist": "~1.0"
+        "php":                            ">=7.0",
+        "arcanedev/support":              "~4.2.0",
+        "matomo/referrer-spam-blacklist": "~1.0"
     },
     "require-dev": {
         "orchestra/testbench": "~3.5.0",

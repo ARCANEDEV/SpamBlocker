@@ -44,14 +44,4 @@ class BlockReferralSpamTest extends TestCase
 
         $response->assertStatus(401);
     }
-
-    /** @test */
-    public function it_must_block_spammer_request_with_subdomain_and_not_utf8()
-    {
-        $response = $this->get('/', [
-            'HTTP_REFERER' => 'http://с.новым.годом.рф',
-        ]);
-
-        $response->assertStatus(401);
-    }
 }
