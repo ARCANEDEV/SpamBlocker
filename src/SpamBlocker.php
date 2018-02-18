@@ -4,7 +4,6 @@ use Arcanedev\SpamBlocker\Contracts\SpamBlocker as SpamBlockerContract;
 use Arcanedev\SpamBlocker\Entities\SpammerCollection;
 use Closure;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Cache;
 
 /**
  * Class     SpamBlocker
@@ -341,7 +340,7 @@ class SpamBlocker implements SpamBlockerContract
      */
     protected function resetCache()
     {
-        Cache::forget($this->cacheKey);
+        cache()->forget($this->cacheKey);
 
         return $this;
     }
@@ -355,7 +354,7 @@ class SpamBlocker implements SpamBlockerContract
      */
     private function cacheSpammers(Closure $callback)
     {
-        return Cache::remember($this->cacheKey, $this->cacheExpires, $callback);
+        return cache()->remember($this->cacheKey, $this->cacheExpires, $callback);
     }
 
     /**

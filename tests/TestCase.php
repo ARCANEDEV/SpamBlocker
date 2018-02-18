@@ -56,7 +56,7 @@ abstract class TestCase extends BaseTestCase
         // Setup default database to use sqlite :memory:
         $config->set(
             'spam-blocker.source',
-            __DIR__ . '/../vendor/matomo/referrer-spam-blacklist/spammers.txt'
+            __DIR__.'/../vendor/matomo/referrer-spam-blacklist/spammers.txt'
         );
 
         $this->registerRoutes($app);

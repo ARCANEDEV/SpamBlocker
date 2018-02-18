@@ -21,18 +21,18 @@ class SpamBlockerTest extends TestCase
     {
         $spammers = SpamBlocker::spammers();
 
-        $this->assertInstanceOf(
+        static::assertInstanceOf(
             \Arcanedev\SpamBlocker\Entities\SpammerCollection::class,
             $spammers
         );
 
-        $this->assertTrue($spammers->count() > 400);
+        static::assertTrue($spammers->count() > 400);
     }
 
     /** @test */
     public function it_can_set_and_get_includes()
     {
-        $this->assertEmpty(SpamBlocker::getIncludes());
+        static::assertEmpty(SpamBlocker::getIncludes());
 
         $includes = [
             'evil-spammer.io',
@@ -41,14 +41,14 @@ class SpamBlockerTest extends TestCase
 
         SpamBlocker::setIncludes($includes);
 
-        $this->assertCount(count($includes), SpamBlocker::getIncludes());
-        $this->assertSame($includes, SpamBlocker::getIncludes());
+        static::assertCount(count($includes), SpamBlocker::getIncludes());
+        static::assertSame($includes, SpamBlocker::getIncludes());
     }
 
     /** @test */
     public function it_can_set_and_get_excludes()
     {
-        $this->assertEmpty(SpamBlocker::getExcludes());
+        static::assertEmpty(SpamBlocker::getExcludes());
 
         $excludes = [
             'google.com',
@@ -58,8 +58,8 @@ class SpamBlockerTest extends TestCase
 
         SpamBlocker::setExcludes($excludes);
 
-        $this->assertCount(count($excludes), SpamBlocker::getExcludes());
-        $this->assertSame($excludes, SpamBlocker::getExcludes());
+        static::assertCount(count($excludes), SpamBlocker::getExcludes());
+        static::assertSame($excludes, SpamBlocker::getExcludes());
     }
 
     /** @test */
@@ -69,7 +69,7 @@ class SpamBlockerTest extends TestCase
 
         SpamBlocker::block('new-spammer.com');
 
-        $this->assertNotEquals($spammers->count(), SpamBlocker::all()->count());
+        static::assertNotEquals($spammers->count(), SpamBlocker::all()->count());
     }
 
     /** @test */
@@ -80,12 +80,12 @@ class SpamBlockerTest extends TestCase
 
         SpamBlocker::block($host);
 
-        $this->assertCount($spammers->count(), SpamBlocker::all());
+        static::assertCount($spammers->count(), SpamBlocker::all());
 
         $spammer = SpamBlocker::getSpammer($host);
 
-        $this->assertSame($host, $spammer->host());
-        $this->assertTrue($spammer->isBlocked());
+        static::assertSame($host, $spammer->host());
+        static::assertTrue($spammer->isBlocked());
     }
 
     /** @test */
@@ -96,12 +96,12 @@ class SpamBlockerTest extends TestCase
 
         SpamBlocker::allow($host);
 
-        $this->assertNotEquals($spammers->count(), SpamBlocker::all()->count());
+        static::assertNotEquals($spammers->count(), SpamBlocker::all()->count());
 
         $spammer = SpamBlocker::getSpammer($host);
 
-        $this->assertSame($host, $spammer->host());
-        $this->assertFalse($spammer->isBlocked());
+        static::assertSame($host, $spammer->host());
+        static::assertFalse($spammer->isBlocked());
     }
 
     /** @test */
@@ -111,7 +111,7 @@ class SpamBlockerTest extends TestCase
 
         SpamBlocker::setSource($path);
 
-        $this->assertSame($path, SpamBlocker::getSource());
+        static::assertSame($path, SpamBlocker::getSource());
     }
 
     /**
@@ -130,8 +130,8 @@ class SpamBlockerTest extends TestCase
     {
         $host = 'http://0n-line.tv';
 
-        $this->assertTrue(SpamBlocker::isBlocked($host));
-        $this->assertFalse(SpamBlocker::isAllowed($host));
+        static::assertTrue(SpamBlocker::isBlocked($host));
+        static::assertFalse(SpamBlocker::isAllowed($host));
     }
 
     /** @test */
@@ -139,8 +139,8 @@ class SpamBlockerTest extends TestCase
     {
         $host = 'http://google.com';
 
-        $this->assertTrue(SpamBlocker::isAllowed($host));
-        $this->assertFalse(SpamBlocker::isBlocked($host));
+        static::assertTrue(SpamBlocker::isAllowed($host));
+        static::assertFalse(SpamBlocker::isBlocked($host));
     }
 
     /** @test */
@@ -151,14 +151,14 @@ class SpamBlockerTest extends TestCase
         SpamBlocker::block('http://0n-line.tv');
         SpamBlocker::allow('http://google.com');
 
-        $this->assertCount(1, SpamBlocker::getExcludes());
-        $this->assertCount(1, SpamBlocker::getIncludes());
-        $this->assertCount($count + 2, SpamBlocker::all());
+        static::assertCount(1, SpamBlocker::getExcludes());
+        static::assertCount(1, SpamBlocker::getIncludes());
+        static::assertCount($count + 2, SpamBlocker::all());
 
         SpamBlocker::reset();
 
-        $this->assertEmpty(SpamBlocker::getExcludes());
-        $this->assertEmpty(SpamBlocker::getIncludes());
-        $this->assertCount($count, SpamBlocker::all());
+        static::assertEmpty(SpamBlocker::getExcludes());
+        static::assertEmpty(SpamBlocker::getIncludes());
+        static::assertCount($count, SpamBlocker::all());
     }
 }

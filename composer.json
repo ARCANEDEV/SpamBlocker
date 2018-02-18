@@ -37,10 +37,7 @@
         "laravel": {
             "providers": [
                 "Arcanedev\\SpamBlocker\\SpamBlockerServiceProvider"
-            ],
-            "aliases": {
-                "SpamBlocker": "Arcanedev\\SpamBlocker\\Facades\\SpamBlocker"
-            }
+            ]
         }
     }
 }

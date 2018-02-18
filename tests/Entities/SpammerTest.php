@@ -21,8 +21,8 @@ class SpammerTest extends TestCase
     {
         $spammer = $this->createBadSpammer();
 
-        $this->assertSame('http://bad-spammer.xyz', $spammer->host());
-        $this->assertTrue($spammer->isBlocked());
+        static::assertSame('http://bad-spammer.xyz', $spammer->host());
+        static::assertTrue($spammer->isBlocked());
     }
 
     /** @test */
@@ -30,15 +30,15 @@ class SpammerTest extends TestCase
     {
         $spammer = $this->createBadSpammer();
 
-        $this->assertInstanceOf(\Illuminate\Contracts\Support\Arrayable::class, $spammer);
+        static::assertInstanceOf(\Illuminate\Contracts\Support\Arrayable::class, $spammer);
 
         $array = $spammer->toArray();
 
-        $this->assertInternalType('array', $array);
-        $this->assertArrayHasKey('host', $array);
-        $this->assertArrayHasKey('blocked', $array);
-        $this->assertEquals($spammer->host(), $array['host']);
-        $this->assertEquals($spammer->isBlocked(), $array['blocked']);
+        static::assertInternalType('array', $array);
+        static::assertArrayHasKey('host', $array);
+        static::assertArrayHasKey('blocked', $array);
+        static::assertEquals($spammer->host(), $array['host']);
+        static::assertEquals($spammer->isBlocked(), $array['blocked']);
     }
 
     /** @test */
@@ -46,11 +46,11 @@ class SpammerTest extends TestCase
     {
         $spammer = $this->createBadSpammer();
 
-        $this->assertInstanceOf(\Illuminate\Contracts\Support\Jsonable::class, $spammer);
+        static::assertInstanceOf(\Illuminate\Contracts\Support\Jsonable::class, $spammer);
 
         $json = $spammer->toJson();
 
-        $this->assertJson($json);
+        static::assertJson($json);
     }
 
     /** @test */
@@ -58,8 +58,8 @@ class SpammerTest extends TestCase
     {
         $spammer = Spammer::make($url = 'http://google.com', false);
 
-        $this->assertSame($url, $spammer->host());
-        $this->assertFalse($spammer->isBlocked());
+        static::assertSame($url, $spammer->host());
+        static::assertFalse($spammer->isBlocked());
     }
 
     /** @test */
@@ -67,8 +67,8 @@ class SpammerTest extends TestCase
     {
         $spammer = $this->createBadSpammer();
 
-        $this->assertTrue($spammer->isSameHost('http://bad-spammer.xyz'));
-        $this->assertFalse($spammer->isSameHost('http://google.com'));
+        static::assertTrue($spammer->isSameHost('http://bad-spammer.xyz'));
+        static::assertFalse($spammer->isSameHost('http://google.com'));
     }
 
     /* -----------------------------------------------------------------
