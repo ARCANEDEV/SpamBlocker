@@ -53,7 +53,7 @@ class SpamBlockerServiceProviderTest extends TestCase
         ];
 
         foreach ($expectations as $expected) {
-            $this->assertInstanceOf($expected, $this->provider);
+            static::assertInstanceOf($expected, $this->provider);
         }
     }
 
@@ -64,6 +64,6 @@ class SpamBlockerServiceProviderTest extends TestCase
             \Arcanedev\SpamBlocker\Contracts\SpamBlocker::class,
         ];
 
-        $this->assertSame($expected, $this->provider->provides());
+        static::assertSame($expected, $this->provider->provides());
     }
 }

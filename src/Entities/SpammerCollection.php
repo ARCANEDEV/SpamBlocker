@@ -99,9 +99,7 @@ class SpammerCollection extends Collection
     {
         $spammer = Spammer::make($host, $blocked);
 
-        $this->put($spammer->host(), $spammer);
-
-        return $this;
+        return $this->put($spammer->host(), $spammer);
     }
 
     /**

@@ -49,7 +49,7 @@ class SpamBlockerTest extends TestCase
         ];
 
         foreach ($expectations as $expected) {
-            $this->assertInstanceOf($expected, $this->blocker);
+            static::assertInstanceOf($expected, $this->blocker);
         }
     }
 
@@ -63,7 +63,7 @@ class SpamBlockerTest extends TestCase
         ];
 
         foreach ($expectations as $expected) {
-            $this->assertInstanceOf($expected, $this->blocker);
+            static::assertInstanceOf($expected, $this->blocker);
         }
     }
 
@@ -72,18 +72,18 @@ class SpamBlockerTest extends TestCase
     {
         $spammers = $this->blocker->spammers();
 
-        $this->assertInstanceOf(
+        static::assertInstanceOf(
             \Arcanedev\SpamBlocker\Entities\SpammerCollection::class,
             $spammers
         );
 
-        $this->assertTrue($spammers->count() > 400);
+        static::assertTrue($spammers->count() > 400);
     }
 
     /** @test */
     public function it_can_set_and_get_includes()
     {
-        $this->assertEmpty($this->blocker->getIncludes());
+        static::assertEmpty($this->blocker->getIncludes());
 
         $includes = [
             'evil-spammer.io',
@@ -92,14 +92,14 @@ class SpamBlockerTest extends TestCase
 
         $this->blocker->setIncludes($includes);
 
-        $this->assertCount(count($includes), $this->blocker->getIncludes());
-        $this->assertSame($includes, $this->blocker->getIncludes());
+        static::assertCount(count($includes), $this->blocker->getIncludes());
+        static::assertSame($includes, $this->blocker->getIncludes());
     }
 
     /** @test */
     public function it_can_set_and_get_excludes()
     {
-        $this->assertEmpty($this->blocker->getExcludes());
+        static::assertEmpty($this->blocker->getExcludes());
 
         $excludes = [
             'google.com',
@@ -109,8 +109,8 @@ class SpamBlockerTest extends TestCase
 
         $this->blocker->setExcludes($excludes);
 
-        $this->assertCount(count($excludes), $this->blocker->getExcludes());
-        $this->assertSame($excludes, $this->blocker->getExcludes());
+        static::assertCount(count($excludes), $this->blocker->getExcludes());
+        static::assertSame($excludes, $this->blocker->getExcludes());
     }
 
     /** @test */
@@ -120,7 +120,7 @@ class SpamBlockerTest extends TestCase
 
         $this->blocker->block('new-spammer.com');
 
-        $this->assertNotEquals($spammers->count(), $this->blocker->all()->count());
+        static::assertNotEquals($spammers->count(), $this->blocker->all()->count());
     }
 
     /** @test */
@@ -131,12 +131,12 @@ class SpamBlockerTest extends TestCase
 
         $this->blocker->block($host);
 
-        $this->assertCount($spammers->count(), $this->blocker->all());
+        static::assertCount($spammers->count(), $this->blocker->all());
 
         $spammer = $this->blocker->getSpammer($host);
 
-        $this->assertSame($host, $spammer->host());
-        $this->assertTrue($spammer->isBlocked());
+        static::assertSame($host, $spammer->host());
+        static::assertTrue($spammer->isBlocked());
     }
 
     /** @test */
@@ -147,12 +147,12 @@ class SpamBlockerTest extends TestCase
 
         $this->blocker->allow($host);
 
-        $this->assertNotEquals($spammers->count(), $this->blocker->all()->count());
+        static::assertNotEquals($spammers->count(), $this->blocker->all()->count());
 
         $spammer = $this->blocker->getSpammer($host);
 
-        $this->assertSame($host, $spammer->host());
-        $this->assertFalse($spammer->isBlocked());
+        static::assertSame($host, $spammer->host());
+        static::assertFalse($spammer->isBlocked());
     }
 
     /** @test */
@@ -162,7 +162,7 @@ class SpamBlockerTest extends TestCase
 
         $this->blocker->setSource($path);
 
-        $this->assertSame($path, $this->blocker->getSource());
+        static::assertSame($path, $this->blocker->getSource());
     }
 
     /**
@@ -183,8 +183,8 @@ class SpamBlockerTest extends TestCase
     {
         $host = 'http://0n-line.tv';
 
-        $this->assertTrue($this->blocker->isBlocked($host));
-        $this->assertFalse($this->blocker->isAllowed($host));
+        static::assertTrue($this->blocker->isBlocked($host));
+        static::assertFalse($this->blocker->isAllowed($host));
     }
 
     /** @test */
@@ -192,8 +192,8 @@ class SpamBlockerTest extends TestCase
     {
         $host = 'http://google.com';
 
-        $this->assertTrue($this->blocker->isAllowed($host));
-        $this->assertFalse($this->blocker->isBlocked($host));
+        static::assertTrue($this->blocker->isAllowed($host));
+        static::assertFalse($this->blocker->isBlocked($host));
     }
 
     /** @test */
@@ -204,14 +204,14 @@ class SpamBlockerTest extends TestCase
         $this->blocker->block('http://0n-line.tv');
         $this->blocker->allow('http://google.com');
 
-        $this->assertCount(1, $this->blocker->getExcludes());
-        $this->assertCount(1, $this->blocker->getIncludes());
-        $this->assertCount($count + 2, $this->blocker->all());
+        static::assertCount(1, $this->blocker->getExcludes());
+        static::assertCount(1, $this->blocker->getIncludes());
+        static::assertCount($count + 2, $this->blocker->all());
 
         $this->blocker->reset();
 
-        $this->assertEmpty($this->blocker->getExcludes());
-        $this->assertEmpty($this->blocker->getIncludes());
-        $this->assertCount($count, $this->blocker->all());
+        static::assertEmpty($this->blocker->getExcludes());
+        static::assertEmpty($this->blocker->getIncludes());
+        static::assertCount($count, $this->blocker->all());
     }
 }

@@ -52,7 +52,7 @@ class SpammerCollectionTest extends TestCase
         ];
 
         foreach ($expectations as $expected) {
-            $this->assertInstanceOf($expected, $this->spammers);
+            static::assertInstanceOf($expected, $this->spammers);
         }
     }
 
@@ -67,11 +67,11 @@ class SpammerCollectionTest extends TestCase
 
         $this->spammers = SpammerCollection::load($spammers);
 
-        $this->assertCount(count($spammers), $this->spammers);
+        static::assertCount(count($spammers), $this->spammers);
 
         foreach ($this->spammers as $spammer) {
-            $this->assertTrue(in_array($spammer->host(), $spammers));
-            $this->assertTrue($spammer->isBlocked());
+            static::assertTrue(in_array($spammer->host(), $spammers));
+            static::assertTrue($spammer->isBlocked());
         }
     }
 
@@ -82,12 +82,12 @@ class SpammerCollectionTest extends TestCase
 
         $this->spammers->blockOne($host);
 
-        $this->assertTrue($this->spammers->exists($host));
+        static::assertTrue($this->spammers->exists($host));
 
         $spammer = $this->spammers->getOne($host);
 
-        $this->assertSame($host, $spammer->host());
-        $this->assertTrue($spammer->isBlocked());
+        static::assertSame($host, $spammer->host());
+        static::assertTrue($spammer->isBlocked());
     }
 
     /** @test */
@@ -102,12 +102,12 @@ class SpammerCollectionTest extends TestCase
         $this->spammers->includes($spammers);
 
         foreach ($spammers as $host) {
-            $this->assertTrue($this->spammers->exists($host));
+            static::assertTrue($this->spammers->exists($host));
 
             $spammer = $this->spammers->getOne($host);
 
-            $this->assertSame($host, $spammer->host());
-            $this->assertTrue($spammer->isBlocked());
+            static::assertSame($host, $spammer->host());
+            static::assertTrue($spammer->isBlocked());
         }
     }
 
@@ -118,12 +118,12 @@ class SpammerCollectionTest extends TestCase
 
         $this->spammers->allowOne($host);
 
-        $this->assertTrue($this->spammers->exists($host));
+        static::assertTrue($this->spammers->exists($host));
 
         $spammer = $this->spammers->getOne($host);
 
-        $this->assertSame($host, $spammer->host());
-        $this->assertFalse($spammer->isBlocked());
+        static::assertSame($host, $spammer->host());
+        static::assertFalse($spammer->isBlocked());
     }
 
     /** @test */
@@ -138,12 +138,12 @@ class SpammerCollectionTest extends TestCase
         $this->spammers->excludes($spammers);
 
         foreach ($spammers as $host) {
-            $this->assertTrue($this->spammers->exists($host));
+            static::assertTrue($this->spammers->exists($host));
 
             $spammer = $this->spammers->getOne($host);
 
-            $this->assertSame($host, $spammer->host());
-            $this->assertFalse($spammer->isBlocked());
+            static::assertSame($host, $spammer->host());
+            static::assertFalse($spammer->isBlocked());
         }
     }
 
@@ -155,14 +155,14 @@ class SpammerCollectionTest extends TestCase
         $this->spammers->blockOne($host);
         $spammer = $this->spammers->getOne($host);
 
-        $this->assertSame($host, $spammer->host());
-        $this->assertTrue($spammer->isBlocked());
+        static::assertSame($host, $spammer->host());
+        static::assertTrue($spammer->isBlocked());
 
         $this->spammers->allowOne($host);
         $spammer = $this->spammers->getOne($host);
 
-        $this->assertSame($host, $spammer->host());
-        $this->assertFalse($spammer->isBlocked());
+        static::assertSame($host, $spammer->host());
+        static::assertFalse($spammer->isBlocked());
     }
 
     /** @test */
@@ -173,13 +173,13 @@ class SpammerCollectionTest extends TestCase
         $this->spammers->allowOne($host);
         $spammer = $this->spammers->getOne($host);
 
-        $this->assertSame($host, $spammer->host());
-        $this->assertFalse($spammer->isBlocked());
+        static::assertSame($host, $spammer->host());
+        static::assertFalse($spammer->isBlocked());
 
         $this->spammers->blockOne($host);
         $spammer = $this->spammers->getOne($host);
 
-        $this->assertSame($host, $spammer->host());
-        $this->assertTrue($spammer->isBlocked());
+        static::assertSame($host, $spammer->host());
+        static::assertTrue($spammer->isBlocked());
     }
 }
