@@ -25,7 +25,7 @@ Spam Blocker is a package that allows you to block referral spammers.
   * Easy setup &amp; configuration.
   * Well documented &amp; IDE Friendly.
   * Well tested with maximum code quality.
-  * Laravel `5.1 | 5.2 | 5.3 | 5.4 | 5.5` are supported.
+  * Laravel `5.1 | 5.2 | 5.3 | 5.4 | 5.5 | 5.6` are supported.
   * Made with :heart: &amp; :coffee:.
   
 ## TODOS
